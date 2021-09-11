@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "sgx-sys",
+    "sample/app",
+    "sample/enclave"
+]
