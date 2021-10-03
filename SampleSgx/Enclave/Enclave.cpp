@@ -55,3 +55,9 @@ void printf_helloworld()
     printf("Hello World\n");
 }
 
+int printf_helloworld1()
+{
+    printf("Hello World\n");
+    return 1;
+}
+

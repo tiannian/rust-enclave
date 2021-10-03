@@ -42,6 +42,7 @@ extern "C" {
 
 void printf(const char *fmt, ...);
 void printf_helloworld();
+int printf_helloworld1();
 
 #if defined(__cplusplus)
 }

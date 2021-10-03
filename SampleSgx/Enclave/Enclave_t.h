@@ -16,8 +16,10 @@ extern "C" {
 #endif
 
 void printf_helloworld(void);
+int printf_helloworld1(void);
 
 sgx_status_t SGX_CDECL ocall_print_string(const char* str);
+sgx_status_t SGX_CDECL ocall_print_string1(int* retval, const char* str);
 
 #ifdef __cplusplus
 }

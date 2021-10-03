@@ -20,8 +20,13 @@ extern "C" {
 #define OCALL_PRINT_STRING_DEFINED__
 void SGX_UBRIDGE(SGX_NOCONVENTION, ocall_print_string, (const char* str));
 #endif
+#ifndef OCALL_PRINT_STRING1_DEFINED__
+#define OCALL_PRINT_STRING1_DEFINED__
+int SGX_UBRIDGE(SGX_NOCONVENTION, ocall_print_string1, (const char* str));
+#endif
 
 sgx_status_t printf_helloworld(sgx_enclave_id_t eid);
+sgx_status_t printf_helloworld1(sgx_enclave_id_t eid, int* retval);
 
 #ifdef __cplusplus
 }
