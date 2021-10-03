@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2021 Intel Corporation. All rights reserved.
+ * Copyright (C) 2011-2018 Intel Corporation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -30,30 +30,21 @@
  */
 
 
-#include <string.h>
-#include "sgx_cpuid.h"
+#ifndef _ENCLAVE_H_
+#define _ENCLAVE_H_
 
-#include "sgx_trts.h"
-#include "../Enclave.h"
-#include "Enclave_t.h"
+#include <stdlib.h>
+#include <assert.h>
 
-/* ecall_malloc_free:
- *   Uses malloc/free to allocate/free trusted memory.
- */
-void ecall_malloc_free(void)
-{
-    void *ptr = malloc(100);
-    assert(ptr != NULL);
-    memset(ptr, 0x0, 100);
-    free(ptr);
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+void printf(const char *fmt, ...);
+void printf_helloworld();
+
+#if defined(__cplusplus)
 }
+#endif
 
-/* ecall_sgx_cpuid:
- *   Uses sgx_cpuid to get CPU features and types.
- */
-void ecall_sgx_cpuid(int cpuinfo[4], int leaf)
-{
-    sgx_status_t ret = sgx_cpuid(cpuinfo, leaf);
-    if (ret != SGX_SUCCESS)
-        abort();
-}
+#endif /* !_ENCLAVE_H_ */

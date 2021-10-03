@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2021 Intel Corporation. All rights reserved.
+ * Copyright (C) 2011-2018 Intel Corporation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -30,11 +30,28 @@
  */
 
 
-/* User defined types */
+#include <stdarg.h>
+#include <stdio.h>      /* vsnprintf */
 
+#include "Enclave.h"
+#include "Enclave_t.h"  /* print_string */
 
-#define LOOPS_PER_THREAD 500
+/* 
+ * printf: 
+ *   Invokes OCALL to display the enclave buffer to the terminal.
+ */
+void printf(const char *fmt, ...)
+{
+    char buf[BUFSIZ] = {'\0'};
+    va_list ap;
+    va_start(ap, fmt);
+    vsnprintf(buf, BUFSIZ, fmt, ap);
+    va_end(ap);
+    ocall_print_string(buf);
+}
 
-typedef void *buffer_t;
-typedef int array_t[10];
+void printf_helloworld()
+{
+    printf("Hello World\n");
+}
 

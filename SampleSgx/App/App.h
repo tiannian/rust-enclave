@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2021 Intel Corporation. All rights reserved.
+ * Copyright (C) 2011-2018 Intel Corporation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -29,34 +29,37 @@
  *
  */
 
-/* Enclave.edl - Top EDL file. */
 
-enclave {
-    
-    include "user_types.h" /* buffer_t */
+#ifndef _APP_H_
+#define _APP_H_
 
-    /* Import ECALL/OCALL from sub-directory EDLs.
-     *  [from]: specifies the location of EDL file. 
-     *  [import]: specifies the functions to import, 
-     *  [*]: implies to import all functions.
-     */
-    
-    from "Edger8rSyntax/Types.edl" import *;
-    from "Edger8rSyntax/Pointers.edl" import *;
-    from "Edger8rSyntax/Arrays.edl" import *;
-    from "Edger8rSyntax/Functions.edl" import *;
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
-    from "TrustedLibrary/Libc.edl" import *;
-    from "TrustedLibrary/Libcxx.edl" import ecall_exception, ecall_map;
-    from "TrustedLibrary/Thread.edl" import *;
+#include "sgx_error.h"       /* sgx_status_t */
+#include "sgx_eid.h"     /* sgx_enclave_id_t */
 
-    /* 
-     * ocall_print_string - invokes OCALL to display string buffer inside the enclave.
-     *  [in]: copy the string buffer to App outside.
-     *  [string]: specifies 'str' is a NULL terminated buffer.
-     */
-    untrusted {
-        void ocall_print_string([in, string] const char *str);
-    };
+#ifndef TRUE
+# define TRUE 1
+#endif
 
-};
+#ifndef FALSE
+# define FALSE 0
+#endif
+
+# define TOKEN_FILENAME   "enclave.token"
+# define ENCLAVE_FILENAME "enclave.signed.so"
+
+extern sgx_enclave_id_t global_eid;    /* global enclave id */
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+#if defined(__cplusplus)
+}
+#endif
+
+#endif /* !_APP_H_ */
